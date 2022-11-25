@@ -17,9 +17,6 @@ public class FourSum {
         List<List<Integer>> resultList = new ArrayList<>();
         Arrays.sort(nums);
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] > target) {
-                return resultList;
-            }
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
@@ -55,7 +52,7 @@ public class FourSum {
         return resultList;
     }
 
-    public List<List<Integer>> fourSum2(int[] nums, int target) {
+    public static List<List<Integer>> fourSum2(int[] nums, int target) {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
 
@@ -97,7 +94,8 @@ public class FourSum {
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{2, 2, 2, 2, 2};
-        System.out.println(JSON.toJSONString(fourSum(nums, 8)));
+        int[] nums = new int[]{1,-2,-5,-4,-3,3,3,5
+        };
+        System.out.println(JSON.toJSONString(fourSum(nums, -11)));
     }
 }

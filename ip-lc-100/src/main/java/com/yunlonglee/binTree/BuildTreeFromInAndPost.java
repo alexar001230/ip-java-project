@@ -15,8 +15,8 @@ public class BuildTreeFromInAndPost {
     }
 
     public static TreeNode genBinTree(){
-        int[] inOrder = new int[]{9, 3, 15, 20, 7};
-        int[] postOrder = new int[]{9, 15, 7, 20, 3};
+        int[] inOrder = new int[]{9, 3, 7, 20, 7};
+        int[] postOrder = new int[]{9, 7, 7, 20, 3};
         return buildTree(inOrder,postOrder);
     }
 

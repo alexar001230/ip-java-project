@@ -6,6 +6,8 @@
  */
 public class Test {
     public static void main(String[] args) {
+        byte[] arr = new byte[Integer.MAX_VALUE];
+        arr[0] = 1;
         System.out.println("test");
     }
 }

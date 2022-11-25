@@ -1,5 +1,8 @@
 package com.yunlonglee.arr;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * @author lijie
  * @version 1.0
@@ -7,8 +10,47 @@ package com.yunlonglee.arr;
  * @date 27/1/22 1:39 上午
  */
 public class ShortestPathInBinaryMatrix {
-    //广度遍历，到右下角则返回，循环完到不了则返回-1，grid[i][j]记录步数
     public static int shortestPathBinaryMatrix(int[][] grid) {
+        int[][] dir = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, 1}, {1, -1}};
+        int m = grid.length;
+        int n = m;
+        boolean[][] vis = new boolean[m][n];
+        Queue<int[]> queue = new LinkedList<>();
+        int dis = 1;
+        if (grid[0][0] != 0) {
+            return -1;
+        }
+        if (m == 1) {
+            return 1;
+        }
+        queue.offer(new int[]{0, 0});
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int c = 0; c < size; ++c) {
+                int[] poll = queue.poll();
+                int i = poll[0];
+                int j = poll[1];
+                for (int k = 0; k < 8; ++k) {
+                    int ni = i + dir[k][0];
+                    int nj = j + dir[k][1];
+                    if (ni >= 0 && ni < m && nj >= 0 && nj < n && grid[ni][nj] == 0 && !vis[ni][nj]) {
+                        if (ni == m - 1 && nj == n - 1) {
+                            return dis + 1;
+                        }
+                        queue.offer(new int[]{ni, nj});
+                        vis[ni][nj] = true;
+                    }
+                }
+            }
+            //这一圈都加1
+            dis += 1;
+        }
+        return -1;
+    }
+
+
+    //广度遍历，到右下角则返回，循环完到不了则返回-1，grid[i][j]记录步数
+    public static int shortestPathBinaryMatrix1(int[][] grid) {
         //动态规划5步曲
         //1.确定dp[i][j]含义及下标含义  矩阵(i,j)点通路的最小步数
         int columnSize = grid[0].length;//二维数组某一行的长度为列的长度

@@ -12,11 +12,12 @@ public class RepeatedSubstringPattern {
         System.out.println(s.length());
         System.out.println(repeatedSubstringPattern(s));
     }
+
     public static boolean repeatedSubstringPattern(String s) {
-        for(int i=1;i<s.length();i++){
-            String toCheckRepeat = s.substring(0,i);
-            String result = s.replaceAll(toCheckRepeat,"");
-            if(result.equals("")){
+        for (int i = 0; i <= s.length() / 2; i++) {
+            String toCheckRepeat = s.substring(0, i);
+            String result = s.replaceAll(toCheckRepeat, "");
+            if (result.equals("")) {
                 return true;
             }
         }

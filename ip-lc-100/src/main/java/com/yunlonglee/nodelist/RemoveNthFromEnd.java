@@ -3,6 +3,9 @@ package com.yunlonglee.nodelist;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.yunlonglee.nodelist.ConstructListNode.constructListNode;
+import static com.yunlonglee.nodelist.ConstructListNode.listNodePrint;
+
 /**
  * @author lijie
  * @version 1.0
@@ -11,24 +14,7 @@ import java.util.List;
  */
 
 
-class Solution {
-    public static void main(String[] args) {
-        ListNode n1 = new ListNode(1);
-        ListNode n2 = new ListNode(2);
-        n1.next = n2;
-        ListNode n3 = new ListNode(3);
-        n2.next = n3;
-        ListNode n4 = new ListNode(4);
-        n3.next = n4;
-//        ListNode n5 = new ListNode(2);
-//        n4.next = n5;
-
-        //removeElements(n1, 2);
-//        swapPairs(n1);
-        removeNthFromEnd(n1, 2);
-    }
-
-
+class RemoveNthFromEnd {
     public static ListNode removeNthFromEnd(ListNode head, int n) {
         if (head == null) {
             return null;
@@ -36,7 +22,19 @@ class Solution {
         if (head.next == null && n == 1) {
             return null;
         }
+        int nodesSize = 0;
+        ListNode count = head;
+        while (null != count) {
+            nodesSize++;
+            count = count.next;
+        }
+        if (n == nodesSize) {
+            return removeHead(head);
+        }
+
+
         int interval = n;
+
         ListNode left = head;
         ListNode right = head;
         int i = 1;
@@ -53,7 +51,25 @@ class Solution {
             left = left.next;
             right = right.next;
         }
-        left.next = right;
+        if (interval == 1) {
+            left.next = right.next;
+        } else {
+            left.next = right;
+        }
+
+        return head;
+    }
+
+
+    public static void main(String[] args) {
+        int[] arr = new int[]{1, 2};
+        ListNode listNode = constructListNode(arr);
+        removeNthFromEnd(listNode, 2);
+        listNodePrint(listNode);
+    }
+
+    private static ListNode removeHead(ListNode head) {
+        head = head.next;
         return head;
     }
 

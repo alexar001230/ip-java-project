@@ -17,4 +17,10 @@ public class Person {
     public String eat(String foodName){
         return "Person eat" + foodName;
     }
+
+    public static void main(String[] args) {
+        Boy boy = new Boy();
+        System.out.println(boy.fight("lijie"));
+        System.out.println(boy.eat("huangua"));
+    }
 }

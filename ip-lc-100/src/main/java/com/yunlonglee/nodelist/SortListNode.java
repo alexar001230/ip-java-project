@@ -27,6 +27,7 @@ public class SortListNode {
         while (head != null) {
             arr[i] = head.val;
             i++;
+            head = head.next;
         }
         Arrays.sort(arr);
         ListNode result = new ListNode(arr[0]);

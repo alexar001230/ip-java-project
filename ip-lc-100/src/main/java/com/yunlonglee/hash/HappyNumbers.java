@@ -1,9 +1,8 @@
 package com.yunlonglee.hash;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.alibaba.fastjson.JSON;
+
+import java.util.*;
 
 /**
  * @author lijie
@@ -12,34 +11,62 @@ import java.util.Map;
  * @date 17/1/22 11:00 下午
  */
 public class HappyNumbers {
-    public boolean isHappy(int n) {
+
+    public static boolean isHappy2(int n) {
+        Set<Integer> seen = new HashSet<>();
+        while (n != 1 && !seen.contains(n)) {
+            seen.add(n);
+            n = genSum(n);
+        }
+        return n == 1;
+    }
+
+
+    public static boolean isHappy(int n) {
         String nStr = String.valueOf(n);
-        Map<String,Integer> map = new HashMap<>();
-        map.put(nStr,n);
+        Map<String, Integer> map = new HashMap<>();
+        map.put(nStr, n);
+        HashSet<Integer> set = new HashSet<>();
         List<Integer> nList = new ArrayList<>();
         int i = 1;
         nList.add(n);
-        while(true){
-            int curNum = genSum(nList.get(i-1));
-            if(curNum == 1){
+        int curNum = n;
+        while (true) {
+            if (curNum == 1) {
                 return true;
             }
-            if(null!=map.get(String.valueOf(curNum))){
-                return false;
+            if (!set.contains(curNum)) {
+                set.add(curNum);
+            } else {
+                break;
             }
+            curNum = genSum(nList.get(i - 1));
             nList.add(curNum);
-            i++;
         }
+        return false;
     }
 
-    private int genSum(int n){
+    private static int genSum(int n) {
         int sum = 0;
         String nStr = String.valueOf(n);
         char[] nArr = nStr.toCharArray();
-        for(int i=0;i<nArr.length;i++){
+        for (int i = 0; i < nArr.length; i++) {
             int num = Integer.parseInt(String.valueOf(nArr[i]));
-            sum = sum+num*num;
+            sum = sum + num * num;
         }
         return sum;
+    }
+
+    public static void main(String[] args) {
+        int n = 2;
+        int a = 2;
+        String nStr = String.valueOf(n);
+        String aStr = String.valueOf(a);
+        Map<String,Integer> map = new HashMap<>();
+        map.put(nStr,n);
+        map.put(aStr,a);
+        System.out.println(JSON.toJSONString(map));
+        System.out.println(nStr.equals(aStr));
+        System.out.println(isHappy2(n));
     }
 }

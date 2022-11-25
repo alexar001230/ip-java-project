@@ -11,6 +11,8 @@
     <modules>
         <module>ip-java-base</module>
         <module>ip-lc-100</module>
+        <module>ip-spring</module>
+        <module>ip-niuke-100</module>
     </modules>
 
 
@@ -32,6 +34,16 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>1.2.75</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>4.3.19.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>4.3.19.RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

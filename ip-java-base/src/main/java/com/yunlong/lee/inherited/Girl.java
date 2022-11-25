@@ -19,4 +19,8 @@ public class Girl extends Person {
     public String speak(String msg) {
         return "Girl" + msg;
     }
+
+    public String sing(String songName){
+        return "Girl" + songName;
+    }
 }
