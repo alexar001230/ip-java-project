@@ -19,15 +19,15 @@ public class PlusOne {
                 digits[i - 1] = digits[i - 1] + 1;
             }
         }
-        if(digits[0] >= 10){
-            int[] result = new int[digits.length+1];
+        if (digits[0] >= 10) {
+            int[] result = new int[digits.length + 1];
             result[0] = 1;
-            digits[0] = digits[0]%10;
-            for(int i=1;i<=digits.length;i++){
-                result[i]=digits[i-1];
+            digits[0] = digits[0] % 10;
+            for (int i = 1; i <= digits.length; i++) {
+                result[i] = digits[i - 1];
             }
             return result;
-        }else {
+        } else {
             return digits;
         }
 
