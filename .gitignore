@@ -34,3 +34,5 @@ target/
 Thumbs.db
 *.orig
 /.idea/
+.vscode/
+.idea/
