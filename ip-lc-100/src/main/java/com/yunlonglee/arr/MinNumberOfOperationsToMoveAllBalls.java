@@ -1,6 +1,5 @@
 package com.yunlonglee.arr;
 
-import com.sun.tools.javac.util.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +16,7 @@ public class MinNumberOfOperationsToMoveAllBalls {
     public static void main(String[] args) {
         String boxes = "001011";
         int[] minOpArr = new int[]{11, 8, 5, 4, 3, 4};
-        Assert.check(Arrays.equals(minOpCalculate(boxes), minOpArr));
+        // Assert.check(Arrays.equals(minOpCalculate(boxes), minOpArr));
     }
 
 

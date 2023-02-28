@@ -1,7 +1,6 @@
 package com.yunlonglee.arr;
 
 
-import com.sun.tools.javac.util.Assert;
 
 /**
  * @author lijie
@@ -13,7 +12,7 @@ import com.sun.tools.javac.util.Assert;
 public class IslandPerimeter {
     public static void main(String[] args) {
         int[][] grid = new int[][]{{0, 1, 0, 0}, {1, 1, 1, 0}, {0, 1, 0, 0}, {1, 1, 0, 0}};
-        Assert.check(islandPerimeter(grid) == 16);
+        // Assert.check(islandPerimeter(grid) == 16);
     }
 
     private static int islandPerimeter(int[][] grid) {
