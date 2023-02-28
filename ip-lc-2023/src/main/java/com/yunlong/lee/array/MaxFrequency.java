@@ -1,0 +1,34 @@
+package com.yunlong.lee.array;
+
+import java.util.Arrays;
+
+/**
+ * @author lijie
+ * @version 1.0
+ * @description
+ * @date 27/2/23 11:44 上午
+ * @link https://leetcode.cn/problems/frequency-of-the-most-frequent-element/
+ */
+public class MaxFrequency {
+    public static void main(String[] args) {
+        int[] nums = new int[]{1,4,8,13};
+        int k = 5;
+        System.out.println(maxFrequency(nums,k));
+    }
+
+    public static int maxFrequency(int[] nums, int k) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        long total = 0;
+        int l = 0, res = 1;
+        for (int r = 1; r < n; ++r) {
+            total += (long) (nums[r] - nums[r - 1]) * (r - l);
+            while (total > k) {
+                total -= nums[r] - nums[l];
+                ++l;
+            }
+            res = Math.max(res, r - l + 1);
+        }
+        return res;
+    }
+}

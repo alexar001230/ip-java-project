@@ -45,15 +45,15 @@ public class AddTwoNumbers {
                 l2 = l2.next;
             }
         }
-        if(carry > 0){
+        if (carry > 0) {
             tail.next = new ListNode(carry);
         }
         return head;
     }
 
     public static void main(String[] args) {
-        ListNode l1 = constructListNode(new int[]{2,4,3});
-        ListNode l2 = constructListNode(new int[]{5,6,4});
-        listNodePrint(addTwoNumbers(l1,l2));
+        ListNode l1 = constructListNode(new int[]{2, 4, 3});
+        ListNode l2 = constructListNode(new int[]{5, 6, 4});
+        listNodePrint(addTwoNumbers(l1, l2));
     }
 }
