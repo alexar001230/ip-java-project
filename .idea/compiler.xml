@@ -10,6 +10,7 @@
         <module name="ip-lc-2023" />
         <module name="ip-spring" />
         <module name="ip-niuke-100" />
+        <module name="ip-jdk" />
         <module name="ip-java-base" />
       </profile>
     </annotationProcessing>
