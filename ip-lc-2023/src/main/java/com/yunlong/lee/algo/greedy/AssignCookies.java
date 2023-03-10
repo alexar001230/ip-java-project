@@ -1,4 +1,4 @@
-package com.yunlong.lee.greedy;
+package com.yunlong.lee.algo.greedy;
 
 import com.alibaba.fastjson.JSON;
 
@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * @author lijie

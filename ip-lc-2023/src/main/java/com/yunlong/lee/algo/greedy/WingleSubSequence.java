@@ -1,6 +1,4 @@
-package com.yunlong.lee.greedy;
-
-import com.alibaba.fastjson.JSON;
+package com.yunlong.lee.algo.greedy;
 
 import java.util.ArrayList;
 import java.util.Arrays;

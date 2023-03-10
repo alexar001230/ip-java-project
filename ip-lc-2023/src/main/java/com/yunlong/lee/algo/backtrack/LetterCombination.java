@@ -1,4 +1,4 @@
-package com.yunlong.lee.backtrack;
+package com.yunlong.lee.algo.backtrack;
 
 import com.alibaba.fastjson.JSON;
 

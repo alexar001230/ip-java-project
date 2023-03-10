@@ -1,11 +1,9 @@
-package com.yunlong.lee.array.spiral;
+package com.yunlong.lee.dataStructure.array.spiral;
 
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author lijie

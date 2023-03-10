@@ -1,4 +1,4 @@
-package com.yunlong.lee.array;
+package com.yunlong.lee.dataStructure.array;
 
 import java.util.*;
 

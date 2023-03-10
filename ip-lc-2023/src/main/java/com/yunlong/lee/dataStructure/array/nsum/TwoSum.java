@@ -1,4 +1,4 @@
-package com.yunlong.lee.array.nsum;
+package com.yunlong.lee.dataStructure.array.nsum;
 
 import com.alibaba.fastjson.JSON;
 

@@ -1,7 +1,5 @@
-package com.yunlong.lee.list;
+package com.yunlong.lee.dataStructure.list;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**

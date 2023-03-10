@@ -1,4 +1,4 @@
-package com.yunlong.lee.str;
+package com.yunlong.lee.dataStructure.str;
 
 /**
  * @author lijie
