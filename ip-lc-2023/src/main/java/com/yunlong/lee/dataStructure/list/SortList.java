@@ -1,5 +1,7 @@
 package com.yunlong.lee.dataStructure.list;
 
+import com.yunlong.lee.utils.list.ListNode;
+
 import java.util.Arrays;
 
 /**

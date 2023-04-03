@@ -36,7 +36,7 @@ public class Combinations {
             res.add(new ArrayList<>(path));
             return;
         }
-        //
+        //回溯算法单层搜索遍历
         for (int i = startIdx; i <= n - (k - path.size()) + 1; i++) {
             path.add(i);
             combineHelper(n, k, i + 1);
