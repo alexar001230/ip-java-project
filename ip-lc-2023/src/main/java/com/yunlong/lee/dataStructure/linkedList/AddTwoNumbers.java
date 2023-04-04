@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.list;
+package com.yunlong.lee.dataStructure.linkedList;
 
 import com.yunlong.lee.utils.list.ListNode;
 
