@@ -1,7 +1,5 @@
 package com.yunlong.lee.utils.tree;
 
-import com.yunlong.lee.utils.tree.TreeNode;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -15,12 +13,22 @@ import java.util.Objects;
  */
 public class TreeNodeUtils {
     public static TreeNode genBinTree() {
+        //          3
+        //       9      20
+        //            15   7
         int[] inOrder = new int[]{9, 3, 15, 20, 7};
         int[] postOrder = new int[]{9, 15, 7, 20, 3};
-        return buildTree(inOrder, postOrder);
+        return buildTreeByInAndPostOrder(inOrder, postOrder);
     }
 
-    public static TreeNode buildTree(int[] inorder, int[] postorder) {
+    //region buildTreeByLevelOrder
+    public static TreeNode buildTreeByLevelOrder(Integer[] levelOrder) {
+        return null;//todo
+    }
+    //endregion
+
+    //region 中序后序生成二叉树(当树节点存在值相同的情况,可能得二叉树结果不唯一)
+    public static TreeNode buildTreeByInAndPostOrder(int[] inorder, int[] postorder) {
         //1.数组长度为0返回空
         //2.找到后序数组中的最后一个元素作为切割点
         //3.找到后序数组中最后一个节点在中序中的位置,作为切割点
@@ -60,6 +68,7 @@ public class TreeNodeUtils {
                 postOrder, postLeft + leftNodesCnt, postRight - 1);
         return curRoot;
     }
+    //endregion
 
 
     //region 层序遍历
@@ -94,6 +103,51 @@ public class TreeNodeUtils {
             // levelNodeQ.poll();
         }
         return levelNums;
+    }
+    //endregion
+
+    //region inOrder中序遍历
+
+    public static List<Integer> inOrder(TreeNode root) {
+        inOrderTraversal(root);
+        return InOrderTraversals;
+    }
+
+    private static List<Integer> InOrderTraversals = new LinkedList<>();
+
+    private static void inOrderTraversal(TreeNode root) {
+        if (Objects.isNull(root)) {
+            return;
+        }
+        if (Objects.nonNull(root.left)) {
+            inOrderTraversal(root.left);
+        }
+        InOrderTraversals.add(root.val);
+        if (Objects.nonNull(root.right)) {
+            inOrderTraversal(root.right);
+        }
+    }
+    //endregion
+    //region postOrder后序遍历
+
+    public static List<Integer> postOrder(TreeNode root) {
+        postOrderTraversal(root);
+        return PostOrderTraversals;
+    }
+
+    private static List<Integer> PostOrderTraversals = new LinkedList<>();
+
+    private static void postOrderTraversal(TreeNode root) {
+        if (Objects.isNull(root)) {
+            return;
+        }
+        if (Objects.nonNull(root.left)) {
+            postOrderTraversal(root.left);
+        }
+        if (Objects.nonNull(root.right)) {
+            postOrderTraversal(root.right);
+        }
+        PostOrderTraversals.add(root.val);
     }
     //endregion
 }

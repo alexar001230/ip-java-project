@@ -93,7 +93,7 @@ public class LowestCommonAncestor {
 
         int[] inOrder = new int[]{0, 2, 3, 4, 5, 6, 7, 8, 9};
         int[] postOrder = new int[]{0, 3, 5, 4, 2, 7, 9, 8, 6};
-        TreeNode root = TreeNodeUtils.buildTree(inOrder, postOrder);
+        TreeNode root = TreeNodeUtils.buildTreeByInAndPostOrder(inOrder, postOrder);
         TreeNode p = new TreeNode(2);
         TreeNode q = new TreeNode(8);
         TreeNode common = new LowestCommonAncestor().lowestCommonAncestor(root, p

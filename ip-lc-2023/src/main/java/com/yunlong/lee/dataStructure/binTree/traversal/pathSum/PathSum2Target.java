@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.binTree.traversal;
+package com.yunlong.lee.dataStructure.binTree.traversal.pathSum;
 
 import com.yunlong.lee.utils.tree.TreeNode;
 import com.yunlong.lee.utils.tree.TreeNodeUtils;
@@ -33,22 +33,33 @@ public class PathSum2Target {
     }
 
     private void binTreePathRecursive(TreeNode root, LinkedList<Integer> aPath) {
-        if (Objects.nonNull(root)) {
-            aPath.add(root.val);
-        }
-
-        if (Objects.isNull(root.left) && Objects.isNull(root.right)) {
-            List<Integer> newPath = aPath;
-            allPaths.add(newPath);
-            aPath.removeLast();
+        //1.确定出口
+        if (Objects.isNull(root)) {
             return;
         }
-        binTreePathRecursive(root.left, aPath);
-        binTreePathRecursive(root.right, aPath);
+        //2.处理节点数据
+        aPath.add(root.val);
+        if (Objects.isNull(root.right) && Objects.isNull(root.left)) {
+            allPaths.add(new LinkedList<>(aPath));
+        }
+        //3.递归迭代
+        if (Objects.nonNull(root.left)) {
+            binTreePathRecursive(root.left, aPath);
+        }
+        if (Objects.nonNull(root.right)) {
+            binTreePathRecursive(root.right, aPath);
+        }
+        aPath.removeLast();
     }
 
     public static void main(String[] args) {
-        TreeNode root = TreeNodeUtils.genBinTree();
-        System.out.println(new PathSum2Target().pathSum(root, 12));
+        int[] inOrderArr = new int[]{7, 11, 2, 4, 5, 13, 8, 5, 4, 1};
+        int[] postOrderArr = new int[]{7, 2, 11, 4, 13, 5, 1, 4, 8, 5};
+
+        TreeNode root = TreeNodeUtils.buildTreeByInAndPostOrder(inOrderArr,
+                postOrderArr);
+        // TreeNode root = TreeNodeUtils.genBinTree();
+
+        System.out.println(new PathSum2Target().pathSum(root, 22));
     }
 }

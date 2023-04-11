@@ -67,7 +67,7 @@ public class SortedList2Bst {
         // 从中序后序构建二叉树
         int[] inOrderArr = inOrder.stream().mapToInt(Integer::valueOf).toArray();
         int[] postOrderArr = postOrder.stream().mapToInt(Integer::valueOf).toArray();
-        TreeNode root = TreeNodeUtils.buildTree(inOrderArr, postOrderArr);
+        TreeNode root = TreeNodeUtils.buildTreeByInAndPostOrder(inOrderArr, postOrderArr);
         return root;
     }
 
