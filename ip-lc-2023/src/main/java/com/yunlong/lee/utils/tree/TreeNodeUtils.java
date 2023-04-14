@@ -1,5 +1,7 @@
 package com.yunlong.lee.utils.tree;
 
+import com.alibaba.fastjson.JSON;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -70,6 +72,13 @@ public class TreeNodeUtils {
     }
     //endregion
 
+
+    //region 层序打印
+    public static void levelOrderTraversalPrint(TreeNode root) {
+        List<List<Integer>> levelNos = levelOrderTraversal(root);
+        System.out.println(JSON.toJSONString(levelNos));
+    }
+    //endregion
 
     //region 层序遍历
     private static LinkedList<TreeNode> levelNodeQ = new LinkedList<>();

@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.binTree.traversal;
+package com.yunlong.lee.dataStructure.binTree.traversal.lowestAncester;
 
 import com.yunlong.lee.utils.tree.TreeNode;
 import com.yunlong.lee.utils.tree.TreeNodeUtils;
@@ -10,11 +10,11 @@ import java.util.Objects;
 /**
  * @author lijie
  * @version 1.0
- * @description 二叉搜索树的最近公共祖先
+ * @description 235. 二叉搜索树的最近公共祖先
  * @date 31/3/23 10:35 上午
  * @link https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-search-tree/
  */
-public class LowestCommonAncestor {
+public class LowestCommonAncestorOfBinSearchTree {
     TreeNode common = new TreeNode();
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
@@ -96,7 +96,7 @@ public class LowestCommonAncestor {
         TreeNode root = TreeNodeUtils.buildTreeByInAndPostOrder(inOrder, postOrder);
         TreeNode p = new TreeNode(2);
         TreeNode q = new TreeNode(8);
-        TreeNode common = new LowestCommonAncestor().lowestCommonAncestor(root, p
+        TreeNode common = new LowestCommonAncestorOfBinSearchTree().lowestCommonAncestor(root, p
                 , q);
         System.out.println(common.val);
     }
