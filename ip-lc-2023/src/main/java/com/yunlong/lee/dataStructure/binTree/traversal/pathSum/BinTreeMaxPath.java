@@ -36,14 +36,14 @@ public class BinTreeMaxPath {
         if (Objects.isNull(root)) {
             return 0;
         }
-        int curNodeGain = root.val;
-        if (Objects.isNull(root.left) && Objects.isNull(root.right)) {
-            curNodeGain = root.val;
-        }
+        // int curNodeGain = root.val;
+        // if (Objects.isNull(root.left) && Objects.isNull(root.right)) {
+        //     curNodeGain = root.val;
+        // }
         //2.确定递归迭代逻辑
-        int curNodeGainL = getBinTreeNodeMaxGainRecursion(root.left);
-        int curNodeGainR = getBinTreeNodeMaxGainRecursion(root.right);
-        int curNodeMaxGain = curNodeGain + curNodeGainL + curNodeGainR;
+        int curNodeGainL = Math.max(getBinTreeNodeMaxGainRecursion(root.left),0);
+        int curNodeGainR = Math.max(getBinTreeNodeMaxGainRecursion(root.right),0);
+        int curNodeMaxGain = root.val + curNodeGainL + curNodeGainR;
 
 
         // if (Objects.nonNull(root.left) && Objects.nonNull(root.right)) {
@@ -65,7 +65,7 @@ public class BinTreeMaxPath {
         //3.业务处理，这里取max(递归迭代过程中记录max值)
         maxGain = Math.max(curNodeMaxGain, maxGain);
         //对于含有返回值的迭代模型,返回值属性的递归迭代节点属性一致
-        return curNodeGain + Math.max(curNodeGainL, curNodeGainR);
+        return root.val + Math.max(curNodeGainL, curNodeGainR);
     }
 
     // private int getBinTreeNodeMaxGainRecursionWithMaxGainParam(TreeNode root,
