@@ -25,7 +25,7 @@ public class TreeNodeUtils {
 
     //region buildTreeByLevelOrder
     public static TreeNode buildTreeByLevelOrder(Integer[] levelOrder) {
-        return null;//todo
+        return levelOrderArr2BinTree(levelOrder);
     }
     //endregion
 
@@ -97,13 +97,21 @@ public class TreeNodeUtils {
             int curLevelSize = levelNodeQ.size();
             while (curLevelSize > 0) {
                 TreeNode curNode = levelNodeQ.poll();
-                if (Objects.nonNull(curNode.left)) {
-                    levelNodeQ.add(curNode.left);
+                if (Objects.isNull(curNode)) {
+                    aLevelNums.add(null);
+                } else {
+                    if (Objects.nonNull(curNode.left)) {
+                        levelNodeQ.add(curNode.left);
+                    } else {
+                        levelNodeQ.add(null);
+                    }
+                    if (Objects.nonNull(curNode.right)) {
+                        levelNodeQ.add(curNode.right);
+                    } else {
+                        levelNodeQ.add(null);
+                    }
+                    aLevelNums.add(curNode.val);
                 }
-                if (Objects.nonNull(curNode.right)) {
-                    levelNodeQ.add(curNode.right);
-                }
-                aLevelNums.add(curNode.val);
                 curLevelSize--;
             }
             //层数据保存
@@ -157,6 +165,61 @@ public class TreeNodeUtils {
             postOrderTraversal(root.right);
         }
         PostOrderTraversals.add(root.val);
+    }
+    //endregion
+
+    //region 层序数组生成二叉树
+    public static TreeNode levelOrderArr2BinTree(Integer[] levelOrderArr) {
+        return doLevelOrderArr2BinTree(levelOrderArr);
+    }
+
+    private static TreeNode doLevelOrderArr2BinTree(Integer[] levelOrderArr) {
+        LinkedList<TreeNode> binTreeNodesQ = new LinkedList<>();
+        int i = 0;
+        while (i < levelOrderArr.length) {
+            if (Objects.nonNull(levelOrderArr[i])) {
+                binTreeNodesQ.offer(new TreeNode(levelOrderArr[i]));
+            } else {
+                binTreeNodesQ.offer(null);
+            }
+            i++;
+        }
+        int curLevelSize = 1;
+        TreeNode root = binTreeNodesQ.peek();
+        LinkedList<TreeNode> parentQ = new LinkedList<>();
+        parentQ.push(binTreeNodesQ.poll());
+        LinkedList<TreeNode> childQ = new LinkedList<>();
+        while (!binTreeNodesQ.isEmpty()) {
+            // int curParentSize = curLevelSize;
+            // while (curLevelSize > 0) {
+            //     parentQ.push(binTreeNodesQ.poll());
+            //     curParentSize--;
+            // }
+            curLevelSize = curLevelSize * 2;
+            int curChildSize = curLevelSize;
+            while (curChildSize > 0 && !binTreeNodesQ.isEmpty()) {
+                childQ.offer(binTreeNodesQ.poll());
+                curChildSize--;
+            }
+            int j = 0;
+            while (!parentQ.isEmpty()) {
+                TreeNode curParent = parentQ.poll();
+                for (; j < childQ.size(); ) {
+                    curParent.left = childQ.get(j);
+                    curParent.right = childQ.get(j + 1);
+                    j = j + 2;
+                    break;
+                }
+            }
+            while (!childQ.isEmpty() && !binTreeNodesQ.isEmpty()) {
+                TreeNode toBeParentNode = childQ.poll();
+                if (Objects.nonNull(toBeParentNode)) {
+                    parentQ.offer(toBeParentNode);
+                }
+            }
+
+        }
+        return root;
     }
     //endregion
 }

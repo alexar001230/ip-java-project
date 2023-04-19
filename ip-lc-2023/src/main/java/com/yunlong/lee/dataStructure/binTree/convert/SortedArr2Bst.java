@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.binTree.treeOp;
+package com.yunlong.lee.dataStructure.binTree.convert;
 
 import com.yunlong.lee.utils.tree.TreeNode;
 import com.yunlong.lee.utils.tree.TreeNodeUtils;
