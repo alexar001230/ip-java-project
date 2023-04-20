@@ -19,7 +19,7 @@ public class Combinations {
     static LinkedList<Integer> path = new LinkedList<>();
 
     public static void main(String[] args) {
-        int n = 4;
+        int n = 3;
         int k = 2;
         System.out.println(JSON.toJSONString(combine(n,k)));
     }
@@ -30,16 +30,18 @@ public class Combinations {
     }
 
     public static void combineHelper(int n, int k, int startIdx) {
-        //构造终止条件，每个分支纵向遍历的长度即为组合的数目上限k
+        //1.终止条件
         if (path.size() == k) {
-            //达到上限k,保存值
+            //1.1保存结果
             res.add(new ArrayList<>(path));
             return;
         }
-        //回溯算法单层搜索遍历
+        //2.选择:本层集合中的元素(树中节点孩子的数量就是集合的大小)
         for (int i = startIdx; i <= n - (k - path.size()) + 1; i++) {
+            //2.1 处理节点
             path.add(i);
-            combineHelper(n, k, i + 1);
+            combineHelper(n, k, i + 1);//(选择列表，路径)
+            //2.2 回溯,撤销处理结果
             path.removeLast();
         }
     }
