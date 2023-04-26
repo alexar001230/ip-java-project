@@ -19,8 +19,8 @@ public class Combinations {
     static LinkedList<Integer> path = new LinkedList<>();
 
     public static void main(String[] args) {
-        int n = 3;
-        int k = 2;
+        int n = 4;
+        int k = 3;
         System.out.println(JSON.toJSONString(combine(n,k)));
     }
 
