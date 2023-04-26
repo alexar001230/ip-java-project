@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.yunlong.lee.utils.tree.TreeNode;
 import com.yunlong.lee.utils.tree.TreeNodeUtils;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -20,39 +21,76 @@ public class PathSum3 {
         return doPathSum(root, targetSum);
     }
 
-    private LinkedList<LinkedList<Integer>> allPaths = new LinkedList<>();
+    //region 1.dfs求所有路径 2.所有路径求子序和为target
+    // 这个算法会重复计算骨干路径上和为target的路径,这部分怎么去掉(通过map去掉了，但是oj超时了，复杂度n3)
+    private LinkedList<LinkedList<TreeNode>> allPaths = new LinkedList<>();
     private int totalCnt = 0;
 
     private int doPathSum(TreeNode root, int targetSum) {
         //1.dfs先求所有的路径
         findAllPaths(root, new LinkedList<>());
         //2.在所有路径中找和为targetSum的路径
-        for (LinkedList<Integer> aPath : allPaths) {
-            int curCnt = sum2TargetCnt(aPath, targetSum);
+        for (LinkedList<TreeNode> aPath : allPaths) {
+            int curCnt = sum2TargetCntByPrefixSum(aPath, targetSum);
             totalCnt += curCnt;
         }
         return totalCnt;
     }
 
-    private int sum2TargetCnt(LinkedList<Integer> aPath, int target) {
+    // 通过前缀和算子序和,但是无法去重了
+    private int sum2TargetCntByPrefixSum(LinkedList<TreeNode> aPath,
+                                         long target) {
+        int cnt = 0;
+        long pre = 0;
+        HashMap<Long, Integer> preJSum2CntMap = new HashMap<>();
+        for (int i = 0; i < aPath.size(); i++) {
+            pre = pre + aPath.get(i).val;
+            if (preJSum2CntMap.containsKey(pre - target)) {
+                cnt = cnt + preJSum2CntMap.get(pre - target);
+            }
+            preJSum2CntMap.put(pre, preJSum2CntMap.getOrDefault(pre, 0) + 1);
+        }
+        return cnt;
+    }
+
+
+    private HashMap<String, Boolean> antiRepeatMap = new HashMap<>();
+
+    private int sum2TargetCnt(LinkedList<TreeNode> aPath, long target) {
         int cnt = 0;
         for (int i = 0; i < aPath.size() - 1; i++) {
-            if (aPath.get(i) == target) {
-                cnt++;
-                continue;
-            }
-            if (aPath.get(i) > target) {
-                continue;
-            }
-            int left = target - aPath.get(i);
-            for (int j = i + 1; j < aPath.size(); j++) {
-                left = left - aPath.get(j);
-                if (left == 0) {
+            if ((long) aPath.get(i).val == target) {
+                String hash = String.valueOf(aPath.get(i).hashCode());
+                if (Objects.isNull(antiRepeatMap.get(hash))) {
+                    System.out.println("curPath=" + aPath + "idx=" + i + ",hash" +
+                            "=" + hash);
                     cnt++;
+                    antiRepeatMap.put(hash, true);
                 }
-                if (left < 0) {
-                    break;
+            }
+            long left = target - (long) aPath.get(i).val;
+            for (int j = i + 1; j < aPath.size(); j++) {
+                left = left - (long) aPath.get(j).val;
+                if (left == 0) {
+                    String hash =
+                            String.valueOf(aPath.get(i).hashCode()) + aPath.get(j).hashCode();
+                    if (Objects.isNull(antiRepeatMap.get(hash))) {
+                        System.out.println("curPath=" + aPath + "idx=" + i +
+                                "," + j + ",hash=" + hash);
+                        cnt++;
+                        antiRepeatMap.put(hash, true);
+                    }
                 }
+            }
+        }
+        if ((long) aPath.get(aPath.size() - 1).val == target) {
+
+            String hash =
+                    String.valueOf(aPath.get(aPath.size() - 1).hashCode());
+            if (Objects.isNull(antiRepeatMap.get(hash))) {
+                System.out.println("curPath=" + aPath + "idx=" + (aPath.size() - 1) + ",hash=" + hash);
+                cnt++;
+                antiRepeatMap.put(hash, true);
             }
         }
         return cnt;
@@ -60,13 +98,14 @@ public class PathSum3 {
 
 
     //region dfs 递归遍历求所有路径
-    private void findAllPaths(TreeNode root, LinkedList<Integer> aPath) {
+    private void findAllPaths(TreeNode root, LinkedList<TreeNode> aPath) {
         //1.出口
         if (Objects.isNull(root)) {
             return;
         }
         //2.处理数据
-        aPath.add(root.val);
+        aPath.add(root);
+
         if (Objects.isNull(root.right) && Objects.isNull(root.left)) {
             allPaths.add(new LinkedList<>(aPath));
             aPath.removeLast();
@@ -84,27 +123,17 @@ public class PathSum3 {
     }
 
     //endregion
-    private LinkedList<Integer> inOrders = new LinkedList<>();
-
-    private List<Integer> inOrder(TreeNode root) {
-        inOrderRecursion(root);
-        return inOrders;
-    }
-
-    private void inOrderRecursion(TreeNode root) {
-        if (Objects.isNull(root)) {
-            return;
-        } else {
-            inOrderRecursion(root.left);
-            inOrders.add(root.val);
-            inOrderRecursion(root.right);
-        }
-    }
 
     public static void main(String[] args) {
-        int[] inOrder = new int[]{3, 3, -2, 5, 2, 1, 10, -3, 11};
-        int[] postOrder = new int[]{3, -2, 3, 1, 2, 5, 11, -3, 10};
+        int a = 1000000000;
+        int b = 294967296;
+        int[] inOrder = new int[]{1000000000, 1000000000, 1000000000, 294967296,
+                1000000000, 1000000000};
+        int[] postOrder = new int[]{1000000000, 1000000000, 1000000000,
+                294967296, 1000000000, 1000000000};
         TreeNode root = TreeNodeUtils.buildTreeByInAndPostOrder(inOrder, postOrder);
+        // Integer[] levelOrders = new Integer[]{1000000000, 1000000000, null, 294967296, null, 1000000000, null, 1000000000, null, 1000000000};
+        // TreeNode root = TreeNodeUtils.buildTreeByLevelOrder(levelOrders);
         // TreeNode root = TreeNodeUtils.genBinTree();
         System.out.println(JSON.toJSONString(TreeNodeUtils.levelOrderTraversal(root)));
         // System.out.println(JSON.toJSONString(TreeNodeUtils.inOrder(root)));
