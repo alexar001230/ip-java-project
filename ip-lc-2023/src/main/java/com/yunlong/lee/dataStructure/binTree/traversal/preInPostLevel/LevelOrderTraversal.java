@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.binTree.traversal;
+package com.yunlong.lee.dataStructure.binTree.traversal.preInPostLevel;
 
 import com.yunlong.lee.utils.tree.TreeNode;
 import com.yunlong.lee.utils.tree.TreeNodeUtils;
@@ -30,7 +30,7 @@ public class LevelOrderTraversal {
             //levelNodeQ.add(null);
             int curLevelSize = levelNodeQ.size();
             while (curLevelSize > 0) {
-                TreeNode curNode = levelNodeQ.poll();
+                TreeNode curNode = levelNodeQ.peek();
                 if (Objects.nonNull(curNode.left)) {
                     levelNodeQ.add(curNode.left);
                 }
@@ -39,6 +39,7 @@ public class LevelOrderTraversal {
                 }
                 aLevelNums.add(curNode.val);
                 curLevelSize--;
+                levelNodeQ.poll();
             }
             //层数据保存
             levelNums.add(aLevelNums);

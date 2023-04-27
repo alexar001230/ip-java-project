@@ -2,6 +2,7 @@ package com.yunlong.lee.utils.tree;
 
 import com.alibaba.fastjson.JSON;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -220,6 +221,24 @@ public class TreeNodeUtils {
 
         }
         return root;
+    }
+    //endregion
+
+    //region 层序构建n叉树 todo 没写完
+    public static Node buildNNodeTreeByLevelOrders(Integer[] nNodeTreeLevelOrders) {
+        Node root = new Node(nNodeTreeLevelOrders[0]);
+        LinkedList<LinkedList<Node>> parentQ = new LinkedList<>();
+        parentQ.offer(new LinkedList<>(Arrays.asList(root)));
+        LinkedList<LinkedList<Node>> childQ = new LinkedList<>();
+        int qLeftIdx = 1;
+        int qRightIdx = qLeftIdx + 1;
+        while (qRightIdx < nNodeTreeLevelOrders.length) {
+            LinkedList<Node> parents = parentQ.peek();
+            while (nNodeTreeLevelOrders[qRightIdx] != null) {
+                qRightIdx++;
+            }
+        }
+        return null;
     }
     //endregion
 }
