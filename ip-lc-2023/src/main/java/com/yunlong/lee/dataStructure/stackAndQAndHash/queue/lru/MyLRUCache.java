@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.stackAndQ.lru;
+package com.yunlong.lee.dataStructure.stackAndQAndHash.queue.lru;
 
 import java.util.HashMap;
 import java.util.Objects;
