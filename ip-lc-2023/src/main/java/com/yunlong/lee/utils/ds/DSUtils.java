@@ -1,7 +1,5 @@
 package com.yunlong.lee.utils.ds;
 
-import com.yunlong.lee.dataStructure.stackAndQAndHash.stack.MyMinStack;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -20,25 +18,19 @@ public class DSUtils {
 
     public static void printResByOperatesAndParams(Class clazz,
                                                    String[] operatesArr,
-                                                   String paramsStr,
-                                                   String sep,
-                                                   String nonParamOperatesStr) {
+                                                   String paramsStr) {
         System.out.println(getResByOperatesAndParams(clazz, operatesArr,
-                paramsStr,
-                sep, nonParamOperatesStr));
+                paramsStr));
     }
 
     /**
-     * @param operatesArr         方法名称
-     * @param paramsStr           方法参数
-     * @param sep                 分割符
-     * @param nonParamOperatesStr 无参方法名称
+     * @param operatesArr 方法名称
+     * @param paramsStr   方法参数
      */
     public static <T> String getResByOperatesAndParams(Class<T> clazz,
                                                        String[] operatesArr,
-                                                       String paramsStr,
-                                                       String sep,
-                                                       String nonParamOperatesStr) {
+                                                       String paramsStr) {
+        String sep = ",";
         T instance = null;
 
         String[] operates = operatesArr;
@@ -46,10 +38,7 @@ public class DSUtils {
         UnaryOperator<String> unaryOp =
                 str -> str.replaceAll("\\[", "").replaceAll("]", "");
         Arrays.asList(params).replaceAll(unaryOp);
-        String[] nonParamOperateArr = nonParamOperatesStr.split(sep);
-        List<String> nonParamOperates = new LinkedList<>(Arrays.asList(nonParamOperateArr));
-
-        Class targetClazz = clazz;
+        Class<T> targetClazz = clazz;
         StringBuilder resSb = new StringBuilder();
         try {
             Constructor<?>[] constructors = targetClazz.getConstructors();
@@ -57,7 +46,7 @@ public class DSUtils {
                 instance =
                         (T) constructors[0].newInstance(Integer.parseInt(params[0]));
             } else {
-                instance = (T) targetClazz.getConstructor().newInstance();
+                instance = targetClazz.getConstructor().newInstance();
             }
             resSb.append("null,");
         } catch (Exception e) {
@@ -69,27 +58,21 @@ public class DSUtils {
 
         for (int i = 1; i < len; i++) {
             try {
-                if (!nonParamOperates.contains(operates[i])) {
-                    Method method = targetClazz.getMethod(operates[i], int.class);
-                    int param = Integer.parseInt(params[i]);
-                    Object result = method.invoke(instance, param);
-                    Class<?> returnType = method.getReturnType();
-                    if (returnType.getSimpleName().equalsIgnoreCase("Void")) {
-                        resSb.append("null");
-                    } else {
-                        resSb.append(result);
-                    }
+                Method method;
+                Object result;
+                if (params[i].length() == 0) {
+                    method = targetClazz.getMethod(operates[i]);
+                    result = method.invoke(instance);
                 } else {
-                    Method method = targetClazz.getMethod(operates[i]);
-                    if (null != instance) {
-                        Object result = method.invoke(instance);
-                        Class<?> returnType = method.getReturnType();
-                        if (returnType.getSimpleName().equalsIgnoreCase("Void")) {
-                            resSb.append("null");
-                        } else {
-                            resSb.append(result);
-                        }
-                    }
+                    method = targetClazz.getMethod(operates[i], int.class);
+                    int param = Integer.parseInt(params[i]);
+                    result = method.invoke(instance, param);
+                }
+                Class<?> returnType = method.getReturnType();
+                if (returnType.getSimpleName().equalsIgnoreCase("Void")) {
+                    resSb.append("null");
+                } else {
+                    resSb.append(result);
                 }
                 if (i != len - 1) {
                     resSb.append(",");

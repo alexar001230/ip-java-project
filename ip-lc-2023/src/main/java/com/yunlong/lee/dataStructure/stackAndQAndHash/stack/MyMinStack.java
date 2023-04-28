@@ -82,15 +82,11 @@ public class MyMinStack {
         String[] operatesArr = {"MinStack", "push", "push", "push", "top", "pop", "getMin", "pop", "getMin", "pop", "push", "top", "getMin", "push", "top", "getMin", "pop", "getMin"};
         String paramsStr = "[[],[2147483646],[2147483646],[2147483647],[],[],[],[],[],[],[2147483647],[],[],[-2147483648],[],[],[],[]]";
 
-        String nonParamOperates = "MinStack,getMin,pop,top";
 
 
-        String sep = ",";
-        String res = DSUtils.getResByOperatesAndParams(MyMinStack.class,
+        DSUtils.printResByOperatesAndParams(MyMinStack.class,
                 operatesArr
-                , paramsStr,
-                sep, nonParamOperates);
-        System.out.println(res);
+                , paramsStr);
         String expect = "[null,null,null,null,2147483647,null,2147483646,null,2147483646,null,null,2147483647,2147483647,null,-2147483648,-2147483648,null,2147483647]";
         System.out.println(expect);
 
