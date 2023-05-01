@@ -86,7 +86,7 @@ public class MyMinStack {
 
         DSUtils.printResByOperatesAndParams(MyMinStack.class,
                 operatesArr
-                , paramsStr);
+                , paramsStr,null);
         String expect = "[null,null,null,null,2147483647,null,2147483646,null,2147483646,null,null,2147483647,2147483647,null,-2147483648,-2147483648,null,2147483647]";
         System.out.println(expect);
 

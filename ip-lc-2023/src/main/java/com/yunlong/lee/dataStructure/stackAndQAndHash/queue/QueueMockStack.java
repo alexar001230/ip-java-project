@@ -55,7 +55,8 @@ public class QueueMockStack {
     public static void main(String[] args) {
         String[] opArr = {"MyStack", "push", "pop", "empty"};
         String params = "[[],[1],[],[]]";
-        DSUtils.printResByOperatesAndParams(QueueMockStack.class, opArr, params
+        DSUtils.printResByOperatesAndParams(QueueMockStack.class, opArr,
+                params,null
         );
     }
 }

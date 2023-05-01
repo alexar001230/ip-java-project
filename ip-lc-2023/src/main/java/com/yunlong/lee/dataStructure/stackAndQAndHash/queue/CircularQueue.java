@@ -91,6 +91,7 @@ public class CircularQueue {
         String[] opArr = new String[]{"CircularQueue", "enQueue", "Rear", "Front", "deQueue", "Front", "deQueue", "Front", "enQueue", "enQueue", "enQueue", "enQueue"};
         String params = "[[3],[2],[],[],[],[],[],[],[4],[2],[2],[3]]";
         String nonParamOps = "isEmpty,isFull,Front,Rear,deQueue";
-        DSUtils.printResByOperatesAndParams(CircularQueue.class, opArr, params);
+        DSUtils.printResByOperatesAndParams(CircularQueue.class, opArr,
+                params,null);
     }
 }
