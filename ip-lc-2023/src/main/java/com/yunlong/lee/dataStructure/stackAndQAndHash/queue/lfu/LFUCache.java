@@ -23,8 +23,8 @@ public class LFUCache {
     public DLinkNode dummyTail;
     //维护<key,对应Node> map
     public HashMap<Integer, DLinkNode> key2DLinkNodeMap;
-    //维护最少使用的key
-    public int minUsedKey = Integer.MAX_VALUE;
+    //维护最少使用的key次数
+    public int minUsedFreq = Integer.MAX_VALUE;
 
 
     class DLinkNode {
@@ -61,15 +61,31 @@ public class LFUCache {
         }
     }
 
-    public void refreshMinUsedKeyIfNeed(int key) {
-        DLinkNode aNode = key2DLinkNodeMap.get(key);
-        DLinkNode minUsedKeyNode = key2DLinkNodeMap.get(minUsedKey);
-        if (Objects.nonNull(minUsedKeyNode)) {
-            if (aNode.freq < minUsedKeyNode.freq) {
-                minUsedKey = key;
+    public void put(int key, int value) {
+        Integer oldValue = kvMap.get(key);
+        if (Objects.isNull(oldValue)) {
+            if (size < capacity) {
+                addKeyValue(key, value);
+            } else {
+                removeMinUsedFreq(minUsedFreq);
+                addKeyValue(key, value);
+                minUsedFreq = 1;
             }
         } else {
-            minUsedKey = 1;
+            addKeyValue(key, value);
+        }
+    }
+
+
+    public void refreshMinUsedKeyIfNeed(int key) {
+        DLinkNode aNode = key2DLinkNodeMap.get(key);
+        DLinkNode minUsedKeyNode = freq2RelatedNodesMap.get(minUsedFreq);
+        if (Objects.nonNull(minUsedKeyNode)) {
+            if (aNode.freq < minUsedKeyNode.freq) {
+                minUsedFreq = aNode.freq;
+            }
+        } else {
+            minUsedFreq = 1;
         }
     }
 
@@ -144,13 +160,14 @@ public class LFUCache {
     private String OP_REMOVE = "remove";
     private String OP_ADD = "add";
 
-    private void removeMinUsedKey(int key) {
+    private void removeMinUsedFreq(int minUsedFreq) {
+        int minUsedKey = freq2RelatedNodesMap.get(minUsedFreq).key;
         if (Objects.isNull(kvMap.get(minUsedKey))) {
             return;
         }
-        refreshKvMap(key, NOT_VALID, OP_REMOVE);
-        refreshFreq2NodesMap(key, NOT_VALID, OP_REMOVE);
-        refreshKey2NodeMap(key, NOT_VALID, OP_REMOVE);
+        refreshKvMap(minUsedKey, NOT_VALID, OP_REMOVE);
+        refreshFreq2NodesMap(minUsedKey, NOT_VALID, OP_REMOVE);
+        refreshKey2NodeMap(minUsedKey, NOT_VALID, OP_REMOVE);
     }
 
     private void addKeyValue(int key, int value) {
@@ -160,40 +177,8 @@ public class LFUCache {
         refreshMinUsedKeyIfNeed(key);
     }
 
-    public void put(int key, int value) {
-        Integer oldValue = kvMap.get(key);
-        if (Objects.isNull(oldValue)) {
-            if (size < capacity) {
-                addKeyValue(key, value);
-            } else {
-                removeMinUsedKey(minUsedKey);
-                addKeyValue(key, value);
-                minUsedKey = 1;
-            }
-        } else {
-            addKeyValue(key, value);
-        }
-    }
 
     public static void main(String[] args) {
-        // LFUCache lfu = new LFUCache(2);
-        // lfu.put(1, 1);   // cache=[1,_], cnt(1)=1
-        // lfu.put(2, 2);   // cache=[2,1], cnt(2)=1, cnt(1)=1
-        // lfu.get(1);      // 返回 1
-        // // cache=[1,2], cnt(2)=1, cnt(1)=2
-        // lfu.put(3, 3);   // 去除键 2 ，因为 cnt(2)=1 ，使用计数最小
-        // // cache=[3,1], cnt(3)=1, cnt(1)=2
-        // lfu.get(2);      // 返回 -1（未找到）
-        // lfu.get(3);      // 返回 3
-        // // cache=[3,1], cnt(3)=2, cnt(1)=2
-        // lfu.put(4, 4);   // 去除键 1 ，1 和 3 的 cnt 相同，但 1 最久未使用
-        // // cache=[4,3], cnt(4)=1, cnt(3)=2
-        // lfu.get(1);      // 返回 -1（未找到）
-        // lfu.get(3);      // 返回 3
-        // // cache=[3,4], cnt(4)=1, cnt(3)=3
-        // lfu.get(4);      // 返回 4
-        // // cache=[3,4], cnt(4)=2, cnt(3)=3
-
         String[] opArr = new String[]{"LFUCache", "put", "put", "get", "put", "get", "get", "put", "get", "get", "get"};
         String params = "[2], [1, 1], [2, 2], [1], [3, 3], [2], [3], [4, 4]," +
                 " [1], [3], [4]";
