@@ -1,4 +1,4 @@
-package com.yunlong.lee.algo.backtrack.combine;
+package com.yunlong.lee.algo.dp.lis;
 
 import com.alibaba.fastjson.JSON;
 import javafx.util.Pair;
@@ -9,7 +9,7 @@ import java.util.LinkedList;
 /**
  * @author lijie
  * @version 1.0
- * @description 413. 等差数列划分
+ * @description 413. 等差数列划分(连续)
  * @date 26/4/23 4:41 下午
  * @link https://leetcode.cn/problems/arithmetic-slices/
  */

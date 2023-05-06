@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.linkedList.op;
+package com.yunlong.lee.dataStructure.linkedList.op.del;
 
 import com.yunlong.lee.utils.list.ListNode;
 
@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * @author lijie
  * @version 1.0
- * @description 删除倒数第n个链表节点
+ * @description 19. 删除链表的倒数第 N 个结点
  * @date 4/4/23 4:25 下午
  * @link https://leetcode.cn/problems/remove-nth-node-from-end-of-list/
  */

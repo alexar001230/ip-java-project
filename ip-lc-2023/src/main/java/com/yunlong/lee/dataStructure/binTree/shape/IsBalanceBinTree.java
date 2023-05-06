@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.binTree.traversal;
+package com.yunlong.lee.dataStructure.binTree.shape;
 
 import com.yunlong.lee.utils.tree.TreeNode;
 

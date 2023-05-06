@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.linkedList.reverse;
+package com.yunlong.lee.dataStructure.linkedList.op.reverse;
 
 import com.yunlong.lee.utils.list.ListNode;
 

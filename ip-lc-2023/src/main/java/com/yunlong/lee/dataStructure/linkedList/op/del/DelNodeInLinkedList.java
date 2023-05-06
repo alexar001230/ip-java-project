@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.linkedList.op;
+package com.yunlong.lee.dataStructure.linkedList.op.del;
 
 import com.yunlong.lee.utils.list.ListNode;
 

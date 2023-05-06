@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.array;
+package com.yunlong.lee.dataStructure.array.interval;
 
 import com.alibaba.fastjson.JSON;
 
@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * @author lijie
  * @version 1.0
- * @description
+ * @description 56. 合并区间
  * @date 7/3/23 1:42 下午
  * @link https://leetcode.cn/problems/merge-intervals/
  */

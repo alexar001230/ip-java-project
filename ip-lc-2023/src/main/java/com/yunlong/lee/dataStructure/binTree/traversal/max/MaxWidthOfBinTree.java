@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.binTree.traversal;
+package com.yunlong.lee.dataStructure.binTree.traversal.max;
 
 import com.yunlong.lee.utils.tree.TreeNode;
 import com.yunlong.lee.utils.tree.TreeNodeUtils;
@@ -11,7 +11,7 @@ import java.util.Queue;
 /**
  * @author lijie
  * @version 1.0
- * @description 二叉树的最大宽度
+ * @description 662. 二叉树最大宽度(每一层的 宽度 被定义为该层最左和最右的非空节点（即，两个端点）之间的长度)
  * @date 31/3/23 3:54 下午
  * @link https://leetcode.cn/problems/maximum-width-of-binary-tree/
  */

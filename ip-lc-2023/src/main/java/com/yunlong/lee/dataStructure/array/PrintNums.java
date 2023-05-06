@@ -3,7 +3,7 @@ package com.yunlong.lee.dataStructure.array;
 /**
  * @author lijie
  * @version 1.0
- * @description 打印从1到最大的n位数
+ * @description 剑指 Offer 17. 打印从1到最大的n位数
  * @date 6/4/23 1:40 下午
  * @link https://leetcode.cn/problems/da-yin-cong-1dao-zui-da-de-nwei-shu-lcof/
  */

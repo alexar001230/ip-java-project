@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.array;
+package com.yunlong.lee.dataStructure.array.interval;
 
 import com.yunlong.lee.utils.arr.ArrUtils;
 

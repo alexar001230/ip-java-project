@@ -19,46 +19,65 @@ public class RestoreIpAddress {
 
 
     private List<String> res = new LinkedList<>();
-    private LinkedList<Integer> aPath = new LinkedList<>();
 
     private List<String> doRestoreIpAddress(String s) {
-        for (int curWidth = 1; curWidth <= s.length() / 4; curWidth++) {
-            backTracking(s, curWidth);
-        }
+        backTracking(s, 0, 0);
         return res;
     }
 
 
-    private void backTracking(String s, int curWidth) {
+    private void backTracking(String s, int startIdx, int pointNum) {
         //1.回溯出口  路径长度为4就可返回
-        if (aPath.size() == 4) {
-            StringBuilder sb = new StringBuilder();
-            for (Integer aNum : aPath) {
-                sb.append(aNum).append(".");
+        if (pointNum == 3) {
+            if (isValid(s, startIdx, s.length() - 1)) {
+                res.add(s);
             }
-            sb.deleteCharAt(sb.length() - 1);
-            res.add(sb.toString());
             return;
         }
         //2.回溯搜索遍历顺序
-        for (int i = 0; i < s.length(); i++) {
-            String toParse = s.substring(i, i + curWidth);
-            if (aPath.size() == 3) {
-                toParse = s.substring(i);
-            }
-            if (toParse.charAt(0) == '0') {
+        for (int i = startIdx; i < s.length(); i++) {
+            if (isValid(s, startIdx, i)) {
+                s = s.substring(0, i + 1) + "." + s.substring(i + 1);
+                pointNum++;
+                backTracking(s, i + 2, pointNum);
+                s = s.substring(0, i + 1) + s.substring(i + 2);
+                pointNum--;
+            } else {
                 break;
             }
-            int aPartIpNo = Integer.parseInt(toParse);
-            if (aPartIpNo > 255) {
-                break;
-            }
-            aPath.add(aPartIpNo);
-            String left = s.substring(i + curWidth);
-            backTracking(left, curWidth);
-            aPath.removeLast();
         }
         return;
+    }
+
+    private boolean isValid(String str, int start, int end) {
+        if (start > end) {
+            return false;
+        }
+
+        if (str.charAt(start) == '0' && start != end) {
+            return false;
+        }
+
+        // boolean hasOthers = false;
+        int toParseNo = 0;
+        for (int i = start; i <= end; i++) {
+            char aChar = str.charAt(i);
+            if (aChar > '9' || aChar < '0') {
+                // hasOthers = true;
+                // break;
+                return false;
+            }
+            toParseNo = toParseNo * 10 + aChar - '0';
+            if (toParseNo > 255) {
+                return false;
+            }
+        }
+        // if (!hasOthers) {
+        //     return Integer.parseInt(str.substring(start, end + 1)) <= 255;
+        // } else {
+        //     return false;
+        // }
+        return true;
     }
 
 
