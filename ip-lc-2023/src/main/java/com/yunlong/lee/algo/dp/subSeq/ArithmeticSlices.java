@@ -1,4 +1,4 @@
-package com.yunlong.lee.algo.dp.lis;
+package com.yunlong.lee.algo.dp.subSeq;
 
 import com.alibaba.fastjson.JSON;
 import javafx.util.Pair;

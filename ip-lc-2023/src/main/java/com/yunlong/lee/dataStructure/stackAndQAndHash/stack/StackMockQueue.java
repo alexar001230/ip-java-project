@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.stackAndQAndHash;
+package com.yunlong.lee.dataStructure.stackAndQAndHash.stack;
 
 import java.util.Stack;
 

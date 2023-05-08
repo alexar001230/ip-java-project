@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.array.spiral;
+package com.yunlong.lee.dataStructure.array.twoDimensional.spiral;
 
 import com.alibaba.fastjson.JSON;
 
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author lijie
  * @version 1.0
- * @description
+ * @description 54. 螺旋矩阵
  * @date 7/3/23 11:20 上午
  * @link https://leetcode.cn/problems/spiral-matrix/
  */

@@ -1,4 +1,4 @@
-package com.yunlong.lee.algo.dp.lis;
+package com.yunlong.lee.algo.dp.subSeq;
 
 import java.util.HashMap;
 import java.util.LinkedList;

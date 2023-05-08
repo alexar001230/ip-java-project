@@ -1,11 +1,11 @@
-package com.yunlong.lee.dataStructure.array.spiral;
+package com.yunlong.lee.dataStructure.array.twoDimensional.spiral;
 
 import com.alibaba.fastjson.JSON;
 
 /**
  * @author lijie
  * @version 1.0
- * @description
+ * @description 59. 螺旋矩阵 II
  * @date 7/3/23 11:38 上午
  * @link https://leetcode.cn/problems/spiral-matrix-ii/
  */
