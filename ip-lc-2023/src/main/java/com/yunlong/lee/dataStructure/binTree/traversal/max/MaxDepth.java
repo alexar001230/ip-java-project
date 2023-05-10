@@ -41,4 +41,16 @@ public class MaxDepth {
         }
         curDepth--;
     }
+
+    private int doMaxDepthRecursion1(TreeNode root) {
+        if (root == null) {
+            // maxDepth = Math.max(maxDepth, curDepth + 1);
+            return 0;
+        }
+        int lMax = doMaxDepthRecursion1(root.left);
+        maxDepth = Math.max(maxDepth, lMax + 1);
+        int rMax = doMaxDepthRecursion1(root.right);
+        maxDepth = Math.max(maxDepth, rMax + 1);
+        return Math.max(lMax, rMax) + 1;
+    }
 }

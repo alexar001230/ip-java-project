@@ -21,6 +21,38 @@ public class PathSum3 {
         return doPathSum(root, targetSum);
     }
 
+
+    //region 前缀和，在一次递归深度遍历过程中，通过map保存前缀和为target-curVal与数量的map
+    //将结果累加,更新map同时回溯时记得-1
+    private int res = 0;
+
+    private int doPathSumByPrefixSum(TreeNode root, int targetSum) {
+        target = targetSum;
+        prefixSum2CntMap.put(0L, 1);
+        preOrderTraversalRecursion(root, 0L);
+        return res;
+    }
+
+    HashMap<Long, Integer> prefixSum2CntMap = new HashMap<>();
+    int target;
+
+    private void preOrderTraversalRecursion(TreeNode root, long curPrefixSum) {
+        if (Objects.isNull(root)) {
+            return;
+        }
+        curPrefixSum = curPrefixSum + root.val;
+        int aCnt = prefixSum2CntMap.getOrDefault(curPrefixSum - target, 0);
+        res = res + aCnt;
+        prefixSum2CntMap.put(curPrefixSum,
+                prefixSum2CntMap.getOrDefault(curPrefixSum, 0) + 1);
+        preOrderTraversalRecursion(root.left, curPrefixSum);
+        preOrderTraversalRecursion(root.right, curPrefixSum);
+        prefixSum2CntMap.put(curPrefixSum,
+                prefixSum2CntMap.getOrDefault(curPrefixSum, 0) - 1);
+    }
+    //endregion
+
+
     //region 1.dfs求所有路径 2.所有路径求子序和为target
     // 这个算法会重复计算骨干路径上和为target的路径,这部分怎么去掉(通过map去掉了，但是oj超时了，复杂度n3)
     private LinkedList<LinkedList<TreeNode>> allPaths = new LinkedList<>();

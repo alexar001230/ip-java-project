@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.binTree.traversal;
+package com.yunlong.lee.dataStructure.binTree.traversal.pathSum;
 
 import com.yunlong.lee.utils.tree.TreeNode;
 import com.yunlong.lee.utils.tree.TreeNodeUtils;
@@ -27,7 +27,22 @@ public class BinTreePaths {
     private LinkedList<Integer> aPathInts = new LinkedList<>();
 
     public List<String> doBinaryTreePathsByIntList(TreeNode root) {
-        doBinaryTreePathsByStr(root);
+        preOrderTraversalIntList(root);
+        allPathsFromList(allIntPaths);
+        return allPaths;
+    }
+
+    private List<String> allPathsFromList(LinkedList<LinkedList<Integer>> allIntPaths) {
+        for (List<Integer> aPath : allIntPaths) {
+            StringBuilder aPathSb = new StringBuilder();
+            for (int i = 0; i < aPath.size(); i++) {
+                aPathSb.append(aPath.get(i));
+                if (i < aPath.size() - 1) {
+                    aPathSb.append(SEP);
+                }
+            }
+            allPaths.add(aPathSb.toString());
+        }
         return allPaths;
     }
 

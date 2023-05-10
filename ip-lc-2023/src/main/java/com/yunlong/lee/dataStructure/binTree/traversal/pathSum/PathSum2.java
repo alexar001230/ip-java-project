@@ -10,9 +10,9 @@ import java.util.Objects;
 /**
  * @author lijie
  * @version 1.0
- * @description
+ * @description 113. 路径总和 II
  * @date 11/4/23 6:47 下午
- * @link
+ * @link https://leetcode.cn/problems/path-sum-ii/description/
  */
 public class PathSum2 {
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
@@ -27,10 +27,6 @@ public class PathSum2 {
         List<List<Integer>> result = new LinkedList<>();
         getAllPathsRecursion(root, new LinkedList<>());
         for (LinkedList<Integer> aPath : allPaths) {
-            // int pathSum = aPath.stream().mapToInt(Integer::intValue).sum();
-            // if(pathSum == targetSum){
-            //     result.add(aPath);
-            // }
             int aSum = targetSum;
             for (Integer aVal : aPath) {
                 aSum = aSum - aVal;
@@ -76,50 +72,3 @@ public class PathSum2 {
     }
 }
 
-class Solution {
-    public List<List<Integer>> pathSum(TreeNode root, int target) {
-        return doPathSum(root, target);
-    }
-
-    LinkedList<LinkedList<Integer>> allPaths = new LinkedList<>();
-    LinkedList<Integer> aPath = new LinkedList<>();
-    List<List<Integer>> targetPaths = new LinkedList<>();
-
-    private List<List<Integer>> doPathSum(TreeNode root, int target) {
-        // 1.递归算所有路径
-        allPathsRecursion(root);
-        // 2.所有路径筛选和为target
-        findSum2Target(allPaths, target);
-        return targetPaths;
-    }
-
-    private void findSum2Target(LinkedList<LinkedList<Integer>> allPaths, int target) {
-        for (LinkedList<Integer> aPath : allPaths) {
-            if (aPath.stream().mapToInt(Integer::intValue).sum() == target) {
-                targetPaths.add(aPath);
-            }
-        }
-    }
-
-    private void allPathsRecursion(TreeNode root) {
-        if (Objects.isNull(root)) {
-            return;
-        }
-        if (Objects.isNull(root.left) && Objects.isNull(root.right)) {
-            allPaths.add(new LinkedList<>(aPath));
-            aPath.removeLast();
-            return;
-        }
-        aPath.add(root.val);
-        if (Objects.nonNull(root.left)) {
-            allPathsRecursion(root.left);
-        }
-
-        if (Objects.nonNull(root.right)) {
-            allPathsRecursion(root.right);
-        }
-        if (!aPath.isEmpty()) {
-            aPath.removeLast();
-        }
-    }
-}

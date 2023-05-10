@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author lijie
  * @version 1.0
- * @description 有效括号
+ * @description 20. 有效的括号
  * @date 16/3/23 7:25 下午
  * @link https://leetcode.cn/problems/valid-parentheses/
  */

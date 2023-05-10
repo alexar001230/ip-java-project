@@ -131,6 +131,11 @@ public class TreeNodeUtils {
         return InOrderTraversals;
     }
 
+    public static void inOrderPrint(TreeNode root) {
+        inOrderTraversal(root);
+        System.out.println(InOrderTraversals);
+    }
+
     private static List<Integer> InOrderTraversals = new LinkedList<>();
 
     private static void inOrderTraversal(TreeNode root) {
@@ -147,6 +152,11 @@ public class TreeNodeUtils {
     }
     //endregion
     //region postOrder后序遍历
+
+    public static void postOrderPrint(TreeNode root) {
+        postOrder(root);
+        System.out.println(PostOrderTraversals);
+    }
 
     public static List<Integer> postOrder(TreeNode root) {
         postOrderTraversal(root);

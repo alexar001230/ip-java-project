@@ -29,8 +29,6 @@ public class NTreeNodePostOrder {
         while (!nodeStack.isEmpty()) {
             Node cursorNode = nodeStack.peek();
             if (Objects.nonNull(cursorNode)) {
-                nodeStack.pop();
-                nodeStack.push(cursorNode);
                 nodeStack.push(null);//null隔开做标记
                 if (Objects.nonNull(cursorNode.children) && cursorNode.children.size() > 0) {
                     visitCursorNodeChildren(cursorNode);

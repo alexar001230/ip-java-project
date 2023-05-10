@@ -26,9 +26,6 @@ public class SimplifyPath {
             if (aStr.equals("..")) {
                 if (!stack.isEmpty()) {
                     stack.pop();
-                    // if (!stack.isEmpty()) {
-                    //     stack.pop();
-                    // }
                 }
                 continue;
             }

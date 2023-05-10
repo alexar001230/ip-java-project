@@ -22,20 +22,20 @@ public class SerializeAndDeserializeBinTree {
         return doSerialize(root);
     }
 
+    //region ans
     private String doSerialize(TreeNode root) {
         return serializeRecursion(root, "");
     }
 
     private String serializeRecursion(TreeNode root, String serializeStr) {
         if (Objects.isNull(root)) {
-            serializeStr = serializeStr + ",";
-            serializeStr = serializeStr + "null";
+            serializeStr = serializeStr + "null,";
             return serializeStr;
         } else {
-            serializeStr = serializeStr + ",";
-            String left = serializeRecursion(root.left, serializeStr);
-            String right = serializeRecursion(root.right, serializeStr);
-            return left + right;
+            serializeStr = serializeStr + root.val + ",";
+            serializeStr = serializeRecursion(root.left, serializeStr);
+            serializeStr = serializeRecursion(root.right, serializeStr);
+            return serializeStr;
         }
     }
 
@@ -56,7 +56,7 @@ public class SerializeAndDeserializeBinTree {
             dataList.remove(0);
             return null;
         }
-        System.out.println(dataList.get(0));
+        // System.out.println(dataList.get(0));
         TreeNode root = new TreeNode(Integer.parseInt(dataList.get(0)));
         dataList.remove(0);
         if (dataList.size() > 0) {
@@ -67,6 +67,7 @@ public class SerializeAndDeserializeBinTree {
         }
         return root;
     }
+    //endregion
 
     //region 层序序列化
     private String myDoSerialize(TreeNode root) {
