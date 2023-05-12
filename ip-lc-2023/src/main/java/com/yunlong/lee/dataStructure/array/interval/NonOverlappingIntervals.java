@@ -39,18 +39,24 @@ public class NonOverlappingIntervals {
 
         Arrays.fill(dp, 1);
 
-        for (int i = 0; i < intervals.length; i++) {
-            for (int j = 0; j < i; j++) {
-                if (intervals[j][1] <= intervals[i][0]) {
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
-                }
+        int rightMax = intervals[0][1];
+        int notSectionCnt = 1;
+        for (int i = 1; i < intervals.length; i++) {
+            int iLeft = intervals[i][0];
+            int iRight = intervals[i][1];
+            if(iLeft>=rightMax){
+                notSectionCnt++;
+                rightMax = Math.max(rightMax,iRight);
             }
+            // dp思路
+            // for (int j = 0; j < i; j++) {
+            //     if (intervals[j][1] <= intervals[i][0]) {
+            //         dp[i] = Math.max(dp[i], dp[j] + 1);
+            //     }
+            // }
         }
-
-        int maxNonOverlappingLength = Arrays.stream(dp).max().getAsInt();
-
-        return intervals.length - maxNonOverlappingLength;
-
+        // int maxNonOverlappingLength = Arrays.stream(dp).max().getAsInt();
+        return intervals.length - notSectionCnt;
     }
     //endregion
 
@@ -157,7 +163,8 @@ public class NonOverlappingIntervals {
         //         {4, 6}};
         // String arrStr = "[[-39,21],[-38,5],[-67,67],[23,37],[83,95],[-71,-19],[-19,64],[4,31],[37,96],[30,57],[-19,12],[53,75],[-54,83],[-32,38],[-18,16],[-60,9],[92,93],[-12,20],[-37,35],[19,36],[46,56],[45,52],[-67,-29],[30,67],[67,79],[52,98],[59,60],[-63,7],[7,20],[16,59],[83,96],[-59,-3],[33,41],[-67,-49],[-15,67]]";
         // System.out.println(ArrUtils.str2Arr2(arrStr));
-        int[][] intervals = new int[][]{{-39, 21}, {-38, 5}, {-67, 67}, {23, 37}, {83, 95}, {-71, -19}, {-19, 64}, {4, 31}, {37, 96}, {30, 57}, {-19, 12}, {53, 75}, {-54, 83}, {-32, 38}, {-18, 16}, {-60, 9}, {92, 93}, {-12, 20}, {-37, 35}, {19, 36}, {46, 56}, {45, 52}, {-67, -29}, {30, 67}, {67, 79}, {52, 98}, {59, 60}, {-63, 7}, {7, 20}, {16, 59}, {83, 96}, {-59, -3}, {33, 41}, {-67, -49}, {-15, 67}};
+        // int[][] intervals = new int[][]{{-39, 21}, {-38, 5}, {-67, 67}, {23, 37}, {83, 95}, {-71, -19}, {-19, 64}, {4, 31}, {37, 96}, {30, 57}, {-19, 12}, {53, 75}, {-54, 83}, {-32, 38}, {-18, 16}, {-60, 9}, {92, 93}, {-12, 20}, {-37, 35}, {19, 36}, {46, 56}, {45, 52}, {-67, -29}, {30, 67}, {67, 79}, {52, 98}, {59, 60}, {-63, 7}, {7, 20}, {16, 59}, {83, 96}, {-59, -3}, {33, 41}, {-67, -49}, {-15, 67}};
+        int[][] intervals = new int[][]{{1,2},{2,3},{3,4},{1,3}};
         System.out.println(new NonOverlappingIntervals().eraseOverlapIntervals(intervals));
     }
 }

@@ -11,63 +11,57 @@ import java.util.Objects;
  */
 public class SearchInRotatedSortedArr {
     public int search(int[] nums, int target) {
-        return doSearch(nums, target);
+        return doSearchByPeak(nums, target);
     }
 
-    private int doSearch(int[] nums, int target) {
-        if (Objects.isNull(nums)) {
-            return -1;
-        }
-        if (nums.length == 1) {
-            if (nums[0] != target) {
-                return -1;
-            } else {
-                return 0;
-            }
-        }
-        //1.先找旋转点
-        int len = nums.length;
+
+    //region
+    private int doSearchByPeak(int[] nums, int target) {
         int left = 0;
-        int right = len - 1;
-        while (left <= right) {
+        int right = nums.length - 1;
+        int resIdx = -1;
+        for (; left <= right; ) {
             int mid = (left + right) / 2;
-            if (mid - left == 1) {
+            if (nums[mid] == target) {
+                resIdx = mid;
                 break;
             }
-            if (nums[mid] > nums[left] && nums[mid] > nums[right]) {
-                left = mid;
-            } else {
-                right = mid - 1;
+            if (mid == 0) {
+                if (mid == 0 && nums[mid + 1] == target) {
+                    resIdx = mid + 1;
+                }
+                break;
             }
-        }
-        if (target == nums[left]) {
-            return left;
-        }
-        if (target < nums[left] && target > nums[len - 1]) {
-            return binSearchTargetIdx(nums, 0, left, target);
-        } else {
-            return binSearchTargetIdx(nums, left + 1, len - 1, target);
-        }
-    }
 
-    private int binSearchTargetIdx(int[] nums, int startIdx, int endIdx,
-                                   int target) {
-        while (startIdx <= endIdx) {
-            int mid = (startIdx + endIdx) / 2;
-            if (target < nums[mid]) {
-                endIdx = mid - 1;
-            } else if (nums[mid] < target) {
-                startIdx = mid + 1;
+            if (mid == nums.length - 1) {
+                if (nums[mid] == target) {
+                    resIdx = mid + 1;
+                }
+                break;
+            }
+
+
+            if (nums[0] <= nums[mid]) {
+                if (target >= nums[left] && target <= nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
             } else {
-                return mid;
+                if (target >= nums[left] && target <= nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
             }
         }
-        return -1;
+        return resIdx;
     }
+    //endregion
 
     public static void main(String[] args) {
-        int[] nums = new int[]{4, 5, 6, 7, 8, 1, 2, 3};
-        int target = 8;
+        int[] nums = new int[]{5,1,3};
+        int target = 5;
         System.out.println(new SearchInRotatedSortedArr().search(nums, target));
     }
 }

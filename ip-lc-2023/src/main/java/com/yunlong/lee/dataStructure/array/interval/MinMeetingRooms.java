@@ -21,7 +21,39 @@ public class MinMeetingRooms {
     }
 
     private int doMinMeetingRooms(List<Interval> intervals) {
-        return 0;
+        Integer[] startArr = intervalIdx2Arr(intervals, true);
+        Integer[] endArr = intervalIdx2Arr(intervals, false);
+        sort(startArr);
+        sort(endArr);
+        int startIdx = 0;
+        int endIdx = 0;
+
+        int needRooms = 0;
+        while (startIdx < intervals.size()) {
+            if (startArr[startIdx] >= endArr[endIdx]) {
+                needRooms--;
+                endIdx++;
+            }
+            needRooms++;
+            startIdx++;
+        }
+        return needRooms;
+    }
+
+    private Integer[] intervalIdx2Arr(List<Interval> intervals, boolean isStart) {
+        Integer[] arr = new Integer[intervals.size()];
+        for (int i = 0; i < intervals.size(); i++) {
+            if (isStart) {
+                arr[i] = intervals.get(i).start;
+            } else {
+                arr[i] = intervals.get(i).end;
+            }
+        }
+        return arr;
+    }
+
+    private void sort(Integer[] arr) {
+        Arrays.sort(arr, Comparator.comparingInt(a -> a));
     }
 
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.array;
+package com.yunlong.lee.dataStructure.array.binSearch;
 
 /**
  * @author lijie
