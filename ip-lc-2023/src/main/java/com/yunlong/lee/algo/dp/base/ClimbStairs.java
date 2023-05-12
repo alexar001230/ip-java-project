@@ -1,9 +1,9 @@
-package com.yunlong.lee.algo.dp;
+package com.yunlong.lee.algo.dp.base;
 
 /**
  * @author lijie
  * @version 1.0
- * @description
+ * @description 70. 爬楼梯
  * @date 10/3/23 7:21 下午
  * @link https://leetcode.cn/problems/climbing-stairs/
  */
@@ -11,7 +11,7 @@ public class ClimbStairs {
     /**
      * dp 五步走
      * 1.dp[i]含义,到第i阶楼梯又dp[i]种方法
-     * 2.转移方程,dp[i]= dp[i-1]+1+dp[i-2]+1
+     * 2.转移方程,dp[i]= dp[i-1]+dp[i-2]
      * 3.初始化 dp[0]=0,dp[1] = 1,dp[2] = 2
      * 4.遍历顺序
      * 5.举例验证

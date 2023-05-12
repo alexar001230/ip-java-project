@@ -15,8 +15,7 @@ public class LongestCommonSubsequence {
     private int doLongestCommonSubsequence(String text1, String text2) {
         //dp
         //1.dp[i][j],t1[0:i]与t2[0:j],最长的公共子序列长度
-        //2.转移方程,dp[i][j] = t1[i] == t2[j]?dp[i-1][j-1]+1:
-        // max(dp[i-1][j],dp[i][j-1])
+        //2.转移方程,dp[i][j] = t1[i] == t2[j]?dp[i-1][j-1]+1:max(dp[i-1][j],dp[i][j-1])
         //3.遍历顺序,小到大
         //4.初始化,当i=0,t1[0,0]为空串,不论j如何取值,公共串都为空,dp[0][j] = 0,同样dp[i][0] = 0,
         //5.举例验证

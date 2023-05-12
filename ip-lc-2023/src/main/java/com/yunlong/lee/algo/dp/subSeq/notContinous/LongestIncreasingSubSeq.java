@@ -1,4 +1,6 @@
-package com.yunlong.lee.algo.dp.subSeq;
+package com.yunlong.lee.algo.dp.subSeq.notContinous;
+
+import java.util.Arrays;
 
 /**
  * @author lijie
@@ -9,9 +11,40 @@ package com.yunlong.lee.algo.dp.subSeq;
  */
 public class LongestIncreasingSubSeq {
     public int findNumberOfLIS(int[] nums) {
-        return doFindNumberOfLIS(nums);
+        return doFindNumberOfLIS1(nums);
     }
 
+    private int doFindNumberOfLIS1(int[] nums) {
+        int len = nums.length;
+        int[] dp = new int[nums.length];
+        int maxLen = 0;
+        //cntArr[i] 到i递增子序列的个数
+        int[] cntArr = new int[nums.length];
+        int total = 0;
+        for (int i = 0; i < len; i++) {
+            dp[i] = 1;
+            cntArr[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    if (dp[j] + 1 > dp[i]) {
+                        dp[i] = dp[j] + 1;
+                        cntArr[i] = cntArr[j];
+                    } else if (dp[j] + 1 == dp[i]) {
+                        cntArr[i] = cntArr[i] + cntArr[j];
+                    }
+                }
+            }
+            if (dp[i] > maxLen) {
+                maxLen = dp[i];
+                total = cntArr[i];
+            } else if (dp[i] == maxLen) {
+                total = total + cntArr[i];
+            }
+        }
+        return total;
+    }
+
+    //region ans
     private int doFindNumberOfLIS(int[] nums) {
         if (nums.length == 0) {
             return 0;
@@ -47,6 +80,7 @@ public class LongestIncreasingSubSeq {
         }
         return totalCnt;
     }
+    //endregion
 
     //region 自己分析的，动规的套路太少了,现在看到的都只想着按照数组覆盖的方式去分析
     private int myDoFindNumberOfLIS(int[] nums) {

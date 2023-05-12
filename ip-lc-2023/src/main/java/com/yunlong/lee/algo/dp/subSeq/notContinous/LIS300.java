@@ -1,4 +1,4 @@
-package com.yunlong.lee.algo.dp.subSeq;
+package com.yunlong.lee.algo.dp.subSeq.notContinous;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -15,6 +15,7 @@ public class LIS300 {
         return doLengthOfLis(nums);
     }
 
+    //region ans
     private int doLengthOfLis(int[] nums) {
         if (nums.length == 0) {
             return 0;
@@ -40,6 +41,33 @@ public class LIS300 {
         //5.举例验证
         return maxLen;
     }
+    //endregion
+
+    //region 二维dp行不通，多个等长的递增序列需要维护太复杂了
+    private int doLengthOfLisByDp2DimensionArr(int[] nums) {
+        int len = nums.length;
+        int[][] dp = new int[len][len];
+
+        dp[len - 1][len - 1] = 1;
+        for (int i = len - 1; i >= 0; i--) {
+            dp[i][i] = 1;
+            for (int j = i + 1; j < len; j++) {
+                if (nums[j] > nums[i]) {
+                    dp[i][j] = dp[i][j - 1] + 1;
+                } else {
+                    dp[i][j] = dp[i][j - 1];
+                }
+            }
+        }
+        int max = 0;
+        for (int[] arr : dp) {
+            for (int aNo : arr) {
+                max = Math.max(max, aNo);
+            }
+        }
+        return max;
+    }
+    //endregion
 
 
     //region 利用map记录前置最长升序列串思路

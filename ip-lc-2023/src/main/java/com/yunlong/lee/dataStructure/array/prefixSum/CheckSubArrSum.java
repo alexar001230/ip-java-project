@@ -1,4 +1,4 @@
-package com.yunlong.lee.algo.dp.subSeq;
+package com.yunlong.lee.dataStructure.array.prefixSum;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -12,13 +12,14 @@ import java.util.Objects;
  */
 public class CheckSubArrSum {
     public boolean checkSubarraySum(int[] nums, int k) {
-        return doCheckSubarraySum(nums, k);
+        return doCheckSubarraySumByPrefixSumAndRemainderMap(nums, k);
     }
 
     //region 前缀和+同余定理+哈希表
-    //preSum[j]-preSum[i] %k == 0 -->preSum[j]%k == preSum[i]%k==0,如果j-i>=2,
+    //同余定理：两数a,b的差能被k整除，那么a%k = b%k
+    //preSum[j]-preSum[i] %k == 0 -->preSum[j]%k == preSum[i]%k,
     // 返回true,所以遍历前缀和数组,如果之前算出来的余数map中已经存在,且距离至少为2,则为true
-    private boolean doCheckSubarraySum(int[] nums, int k) {
+    private boolean doCheckSubarraySumByPrefixSumAndRemainderMap(int[] nums, int k) {
         int[] preSumArr = new int[nums.length];
         preSumArr[0] = nums[0];
         for (int i = 1; i < nums.length; i++) {
@@ -36,6 +37,40 @@ public class CheckSubArrSum {
                 yushu2IdxMap.put(yushu, i);
             } else {
                 if (i - aIdx >= 2) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    //endregion
+
+
+    //region 单纯用前缀和会超时
+    private boolean doCheckSubarraySumByPrefixSum(int[] nums, int k) {
+        if(nums == null || nums.length<2){
+            return false;
+        }
+        if ((nums[1] + nums[0]) % k == 0) {
+            return true;
+        }
+        int[] preSumArr = new int[nums.length];
+        preSumArr[0] = nums[0];
+        HashMap<Integer, Integer> idx2PreSumMap = new HashMap<>();
+        idx2PreSumMap.put(0, nums[0]);
+        for (int i = 1; i < nums.length; i++) {
+            preSumArr[i] = preSumArr[i - 1] + nums[i];
+            idx2PreSumMap.put(i, preSumArr[i]);
+        }
+
+        for (int i = 2; i < nums.length; i++) {
+            int iSum = preSumArr[i];
+            if (iSum % k == 0) {
+                return true;
+            }
+            for (int j = i - 2; j >= 0; j--) {
+                int jSum = preSumArr[j];
+                if ((iSum - jSum) % k == 0) {
                     return true;
                 }
             }

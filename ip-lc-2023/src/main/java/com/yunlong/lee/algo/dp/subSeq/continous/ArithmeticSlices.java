@@ -1,4 +1,4 @@
-package com.yunlong.lee.algo.dp.subSeq;
+package com.yunlong.lee.algo.dp.subSeq.continous;
 
 import com.alibaba.fastjson.JSON;
 import javafx.util.Pair;

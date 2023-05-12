@@ -1,4 +1,4 @@
-package com.yunlong.lee.algo.dp;
+package com.yunlong.lee.algo.dp.base;
 
 /**
  * @author lijie

@@ -1,8 +1,6 @@
-package com.yunlong.lee.algo.dp;
+package com.yunlong.lee.algo.dp.knapsack.complete;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * @author lijie
@@ -27,30 +25,16 @@ public class CoinChange {
         //3.遍历顺序,i range 0~11
         //4.初始化，dp[0] = 0;dp[1] = 1; dp[2] = ,dp[3]
         //5.举例验证
-
-        HashMap<Integer, Integer> valueMap = new HashMap<Integer, Integer>();
-        for (Integer value : coins) {
-            valueMap.put(value, 1);
-        }
-
         int max = amount + 1;
-
         int[] dp = new int[amount + 1];
         Arrays.fill(dp, max);
         dp[0] = 0;
-        // dp[1] = Objects.isNull(valueMap.get(1)) ? 0 : 1;
-        // dp[2] = Objects.isNull(valueMap.get(2)) ? dp[1] + 1 : 1;
         for (int i = 1; i <= amount; i++) {
-            int preMinCoins = Integer.MAX_VALUE;
             for (int j = 0; j < coins.length; j++) {
-                // min(dp[i - coins[j]])+1
-                if (i - coins[j] < 0) {
-                    // dp[i - coins[j]] = 0;
-                } else {
+                if (i - coins[j] >= 0) {
                     dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
                 }
             }
-            // dp[i] = preMinCoins + 1;
         }
         return dp[amount] > amount ? -1 : dp[amount];
     }

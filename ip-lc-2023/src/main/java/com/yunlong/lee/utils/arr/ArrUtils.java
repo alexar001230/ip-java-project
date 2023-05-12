@@ -27,4 +27,10 @@ public class ArrUtils {
         return "int[][] arr = new int[][]" + s2 + ";";
     }
 
+    public static void str2Arr2Print(String arrStr) {
+        String s1 = arrStr.replaceAll("\\[", "{");
+        String s2 = s1.replaceAll("]", "}");
+        System.out.println("int[][] arr = new int[][]" + s2 + ";");
+    }
+
 }
