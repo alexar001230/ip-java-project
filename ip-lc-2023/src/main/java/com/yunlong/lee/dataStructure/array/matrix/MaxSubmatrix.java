@@ -1,4 +1,4 @@
-package com.yunlong.lee.dataStructure.array.twoDimensional.matrix;
+package com.yunlong.lee.dataStructure.array.matrix;
 
 import com.alibaba.fastjson.JSON;
 

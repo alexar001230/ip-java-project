@@ -47,6 +47,12 @@
                 <artifactId>spring-context</artifactId>
                 <version>4.3.19.RELEASE</version>
             </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>3.21.1</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
